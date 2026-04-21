@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Madu Syifa Barokah — Madu Murni Pilihan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --amber: #C8760A;
+    --amber-light: #F0A832;
+    --amber-pale: #FFF3D6;
+    --amber-dark: #7A4200;
+    --cream: #FDFAF3;
+    --brown: #3D1F00;
+    --text: #2C1A00;
+    --text-muted: #7A6040;
+    --white: #FFFFFF;
+    --shadow: 0 8px 40px rgba(200,118,10,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: rgba(253,250,243,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,118,10,0.15);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+    transition: box-shadow .3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(200,118,10,0.12); }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 900;
+    color: var(--amber-dark);
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--amber); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: .88rem; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--text-muted);
+    text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--amber); }
+  .nav-cta {
+    background: var(--amber); color: #fff;
+    border: none; padding: 10px 22px;
+    border-radius: 30px; font-weight: 700; font-size: .85rem;
+    cursor: pointer; text-decoration: none; letter-spacing: .05em;
+    transition: background .2s, transform .2s;
+  }
+  .nav-cta:hover { background: var(--amber-dark); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--amber-dark); border-radius: 2px; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 100px 5% 60px;
+    background: linear-gradient(135deg, var(--cream) 60%, #FFF0C0 100%);
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(240,168,50,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:.8} 50%{transform:scale(1.1);opacity:1} }
+
+  .hero-text { position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--amber-pale); color: var(--amber-dark);
+    border: 1px solid rgba(200,118,10,0.3);
+    padding: 6px 16px; border-radius: 20px;
+    font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; margin-bottom: 24px;
+    animation: fadeDown .8s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    font-weight: 900; line-height: 1.1;
+    color: var(--brown);
+    margin-bottom: 20px;
+    animation: fadeDown .8s .1s ease both;
+  }
+  .hero-title em { color: var(--amber); font-style: italic; }
+  .hero-desc {
+    font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;
+    max-width: 460px; margin-bottom: 36px;
+    animation: fadeDown .8s .2s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    animation: fadeDown .8s .3s ease both;
+  }
+  .btn-primary {
+    background: var(--amber); color: #fff;
+    padding: 14px 32px; border-radius: 40px;
+    font-weight: 700; font-size: .95rem; text-decoration: none;
+    transition: background .2s, transform .2s, box-shadow .2s;
+    box-shadow: 0 6px 24px rgba(200,118,10,0.35);
+  }
+  .btn-primary:hover { background: var(--amber-dark); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(200,118,10,0.45); }
+  .btn-secondary {
+    background: transparent; color: var(--amber-dark);
+    padding: 14px 32px; border-radius: 40px;
+    border: 2px solid var(--amber); font-weight: 700; font-size: .95rem;
+    text-decoration: none; transition: all .2s;
+  }
+  .btn-secondary:hover { background: var(--amber); color: #fff; }
+
+  .hero-stats {
+    display: flex; gap: 36px; margin-top: 48px;
+    animation: fadeDown .8s .4s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900; color: var(--amber);
+    display: block;
+  }
+  .stat-label { font-size: .78rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 1;
+    animation: fadeLeft .9s .2s ease both;
+  }
+  .honey-jar-wrapper {
+    position: relative; width: 320px; height: 380px;
+  }
+  .jar-blob {
+    width: 300px; height: 300px;
+    background: linear-gradient(145deg, #F5C842, #E8940A, #C87010);
+    border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%;
+    position: absolute; top: 40px; left: 10px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 20px 60px rgba(200,118,10,0.4);
+    animation: blobFloat 5s ease-in-out infinite;
+  }
+  @keyframes blobFloat { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-16px) rotate(3deg)} }
+  .jar-icon {
+    font-size: 9rem; line-height: 1;
+    filter: drop-shadow(0 8px 20px rgba(0,0,0,0.2));
+  }
+  .floating-tag {
+    position: absolute; background: white; border-radius: 12px;
+    padding: 10px 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    font-weight: 700; font-size: .82rem; color: var(--brown);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .tag1 { top: 0; right: 0; animation: floatTag1 3s ease-in-out infinite; }
+  .tag2 { bottom: 30px; left: 0; animation: floatTag2 4s ease-in-out infinite; }
+  @keyframes floatTag1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  @keyframes floatTag2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeLeft { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
+
+  /* ─── MARQUEE ─── */
+  .marquee-bar {
+    background: var(--amber); padding: 14px 0; overflow: hidden;
+    display: flex; gap: 0;
+  }
+  .marquee-track {
+    display: flex; gap: 48px; white-space: nowrap;
+    animation: marquee 22s linear infinite;
+    min-width: max-content;
+  }
+  .marquee-item {
+    font-size: .82rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: rgba(255,255,255,0.9);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .marquee-item::after { content: '✦'; color: rgba(255,255,255,0.5); }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 90px 5%; }
+  .section-label {
+    font-size: .75rem; font-weight: 700; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--amber);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; color: var(--brown); line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--text-muted); line-height: 1.7;
+    max-width: 540px;
+  }
+
+  /* ─── KEUNGGULAN ─── */
+  #keunggulan { background: var(--cream); }
+  .keunggulan-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    margin-top: 56px;
+  }
+  .keunggulan-card {
+    background: #fff; border-radius: 20px;
+    padding: 32px 24px; text-align: center;
+    border: 1px solid rgba(200,118,10,0.1);
+    transition: transform .3s, box-shadow .3s;
+    cursor: default;
+  }
+  .keunggulan-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+  .keung-icon { font-size: 3rem; margin-bottom: 16px; display: block; }
+  .keung-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--brown); margin-bottom: 8px; }
+  .keung-desc { font-size: .88rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ─── PRODUK ─── */
+  #produk { background: linear-gradient(180deg, var(--cream), #FFF8E8); }
+  .produk-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 16px; }
+  .produk-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+  }
+  .produk-card {
+    background: #fff; border-radius: 24px; overflow: hidden;
+    border: 1px solid rgba(200,118,10,0.1);
+    transition: transform .3s, box-shadow .3s;
+    position: relative;
+  }
+  .produk-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(200,118,10,0.2); }
+  .produk-badge-card {
+    position: absolute; top: 16px; left: 16px; z-index: 2;
+    background: var(--amber); color: #fff;
+    font-size: .72rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+  }
+  .produk-img {
+    width: 100%; height: 220px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7rem;
+    background: linear-gradient(135deg, #FFF8E8, #FFE9A0);
+  }
+  .produk-body { padding: 24px; }
+  .produk-jenis { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
+  .produk-nama { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--brown); margin-bottom: 8px; }
+  .produk-desc { font-size: .85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+  .produk-manfaat { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .manfaat-tag {
+    background: var(--amber-pale); color: var(--amber-dark);
+    font-size: .72rem; font-weight: 700; padding: 4px 10px; border-radius: 12px;
+  }
+  .produk-footer { display: flex; align-items: center; justify-content: space-between; }
+  .produk-harga { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--amber); }
+  .produk-harga small { font-family: 'Lato', sans-serif; font-size: .72rem; color: var(--text-muted); font-weight: 400; display: block; }
+  .btn-beli {
+    background: var(--amber); color: #fff;
+    border: none; padding: 10px 20px; border-radius: 30px;
+    font-weight: 700; font-size: .82rem; cursor: pointer;
+    transition: background .2s, transform .2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-beli:hover { background: var(--amber-dark); transform: scale(1.05); }
+
+  /* ─── TESTIMONI ─── */
+  #testimoni { background: var(--brown); }
+  #testimoni .section-title { color: #fff; }
+  #testimoni .section-label { color: var(--amber-light); }
+  #testimoni .section-sub { color: rgba(255,255,255,0.6); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .testi-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 28px;
+    transition: background .3s, transform .3s;
+  }
+  .testi-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+  .testi-stars { color: var(--amber-light); font-size: 1rem; margin-bottom: 14px; letter-spacing: 2px; }
+  .testi-text { font-size: .9rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .testi-name { font-weight: 700; color: #fff; font-size: .88rem; }
+  .testi-loc { font-size: .75rem; color: rgba(255,255,255,0.5); }
+
+  /* ─── CARA PESAN ─── */
+  #pesan { background: var(--cream); }
+  .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; position: relative; }
+  .steps-grid::before {
+    content: ''; position: absolute; top: 36px; left: 10%; right: 10%; height: 2px;
+    background: linear-gradient(90deg, var(--amber-pale), var(--amber), var(--amber-pale));
+    z-index: 0;
+  }
+  .step-card { text-align: center; position: relative; z-index: 1; }
+  .step-num {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--amber); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900;
+    margin: 0 auto 20px; box-shadow: 0 8px 24px rgba(200,118,10,0.35);
+    transition: transform .3s;
+  }
+  .step-card:hover .step-num { transform: scale(1.1); }
+  .step-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--brown); margin-bottom: 8px; }
+  .step-desc { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ─── ABOUT ─── */
+  #tentang {
+    background: linear-gradient(135deg, #FFF8E8, var(--cream));
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .about-visual { position: relative; }
+  .about-img-wrap {
+    width: 100%; padding-top: 100%; border-radius: 40px;
+    background: linear-gradient(145deg, #F5C842, #E8940A);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    box-shadow: 0 24px 80px rgba(200,118,10,0.3);
+  }
+  .about-img-inner {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10rem;
+  }
+  .about-tag {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--brown); color: #fff;
+    border-radius: 20px; padding: 20px 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  }
+  .about-tag-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--amber-light); }
+  .about-tag-text { font-size: .78rem; color: rgba(255,255,255,0.7); }
+  .about-checks { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .about-checks li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: .92rem; color: var(--text-muted);
+  }
+  .about-checks li::before {
+    content: '✓'; width: 22px; height: 22px;
+    background: var(--amber-pale); color: var(--amber);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: .75rem; flex-shrink: 0;
+  }
+
+  /* ─── KONTAK ─── */
+  #kontak { background: var(--amber-pale); }
+  .kontak-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+  }
+  .kontak-info-list { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 20px; }
+  .kontak-item { display: flex; align-items: flex-start; gap: 14px; }
+  .kontak-icon-wrap {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--amber); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .kontak-item-title { font-weight: 700; color: var(--brown); margin-bottom: 2px; font-size: .88rem; }
+  .kontak-item-val { font-size: .9rem; color: var(--text-muted); }
+  .kontak-item-val a { color: var(--amber); text-decoration: none; font-weight: 700; }
+
+  .kontak-form { background: #fff; border-radius: 24px; padding: 36px; box-shadow: var(--shadow); }
+  .form-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--brown); margin-bottom: 24px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: .82rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .06em; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid rgba(200,118,10,0.2); border-radius: 12px;
+    font-family: 'Lato', sans-serif; font-size: .92rem; color: var(--text);
+    background: var(--cream); outline: none;
+    transition: border-color .2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--amber);
+  }
+  .form-group textarea { height: 100px; resize: vertical; }
+  .btn-submit {
+    width: 100%; background: var(--amber); color: #fff;
+    border: none; padding: 14px; border-radius: 40px;
+    font-family: 'Lato', sans-serif; font-size: .95rem; font-weight: 700;
+    cursor: pointer; transition: background .2s, transform .2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-submit:hover { background: var(--amber-dark); transform: translateY(-2px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--brown); color: rgba(255,255,255,0.7);
+    padding: 60px 5% 32px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900; color: #fff; margin-bottom: 12px;
+  }
+  .footer-brand-name span { color: var(--amber-light); }
+  .footer-desc { font-size: .85rem; line-height: 1.7; max-width: 280px; }
+  .footer-col-title { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--amber-light); margin-bottom: 16px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: .88rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--amber-light); }
+  .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+  .social-btn {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: rgba(255,255,255,0.1); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    text-decoration: none; transition: background .2s, transform .2s;
+  }
+  .social-btn:hover { background: var(--amber); transform: translateY(-3px); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px; text-align: center;
+    font-size: .8rem; color: rgba(255,255,255,0.4);
+  }
+
+  /* ─── WA FLOAT ─── */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+    background: #25D366; color: #fff;
+    width: 58px; height: 58px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; text-decoration: none;
+    box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+    animation: waBounce 2s ease-in-out infinite;
+    transition: transform .2s;
+  }
+  .wa-float:hover { transform: scale(1.1); }
+  @keyframes waBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+  /* ─── TOAST ─── */
+  #toast {
+    position: fixed; bottom: 100px; right: 28px; z-index: 9999;
+    background: var(--brown); color: #fff;
+    padding: 14px 24px; border-radius: 16px;
+    font-size: .88rem; font-weight: 700;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    transform: translateX(200%); transition: transform .4s ease;
+    border-left: 4px solid var(--amber);
+  }
+  #toast.show { transform: translateX(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+    .hero-desc { max-width: 100%; }
+    .hero-btns { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .hero-visual { order: -1; }
+    .keunggulan-grid { grid-template-columns: repeat(2, 1fr); }
+    .produk-grid { grid-template-columns: repeat(2, 1fr); }
+    .testi-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps-grid::before { display: none; }
+    #tentang { grid-template-columns: 1fr; }
+    .kontak-wrap { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (max-width: 600px) {
+    .keunggulan-grid { grid-template-columns: 1fr; }
+    .produk-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .produk-header { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ─── SCROLL ANIMATION ─── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s, transform .7s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">🍯 Madu <span>Syifa Barokah</span></a>
+  <ul class="nav-links">
+    <li><a href="#keunggulan">Keunggulan</a></li>
+    <li><a href="#produk">Produk</a></li>
+    <li><a href="#testimoni">Testimoni</a></li>
+    <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+  <a href="#produk" class="nav-cta">Beli Sekarang</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="hero-badge">🌿 100% Murni &amp; Alami</div>
+    <h1 class="hero-title">
+      Madu <em>Asli</em> untuk<br>Kesehatan &amp;<br>Keberkahan Anda
+    </h1>
+    <p class="hero-desc">Madu Syifa Barokah hadir dengan kualitas premium dari sarang lebah alami pilihan. Murni, lezat, dan penuh manfaat untuk tubuh dan jiwa Anda.</p>
+    <div class="hero-btns">
+      <a href="#produk" class="btn-primary">🛒 Lihat Produk</a>
+      <a href="#kontak" class="btn-secondary">Hubungi Kami</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">5K+</span><span class="stat-label">Pelanggan</span></div>
+      <div class="stat"><span class="stat-num">1</span><span class="stat-label">Produk Unggulan</span></div>
+      <div class="stat"><span class="stat-num">6+</span><span class="stat-label">Tahun Berdiri</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="honey-jar-wrapper">
+      <div class="jar-blob">
+        <div class="jar-icon">🍯</div>
+      </div>
+      <div class="floating-tag tag1">⭐ Rating 4.9/5</div>
+      <div class="floating-tag tag2">🌿 Tanpa Pengawet</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track" id="marquee">
+    <span class="marquee-item">Madu Murni</span>
+    <span class="marquee-item">Tanpa Campuran</span>
+    <span class="marquee-item">Langsung dari Peternak</span>
+    <span class="marquee-item">Bersertifikat Halal</span>
+    <span class="marquee-item">Kualitas Premium</span>
+    <span class="marquee-item">Pengiriman Aman</span>
+    <span class="marquee-item">Garansi Keaslian</span>
+    <span class="marquee-item">Madu Murni</span>
+    <span class="marquee-item">Tanpa Campuran</span>
+    <span class="marquee-item">Langsung dari Peternak</span>
+    <span class="marquee-item">Bersertifikat Halal</span>
+    <span class="marquee-item">Kualitas Premium</span>
+    <span class="marquee-item">Pengiriman Aman</span>
+    <span class="marquee-item">Garansi Keaslian</span>
+  </div>
+</div>
+
+<!-- KEUNGGULAN -->
+<section id="keunggulan">
+  <div class="reveal">
+    <div class="section-label">Mengapa Kami?</div>
+    <h2 class="section-title">Keunggulan Madu<br>Syifa Barokah</h2>
+    <p class="section-sub">Kami berkomitmen menghadirkan madu terbaik dengan standar kualitas tertinggi untuk kesehatan keluarga Anda.</p>
+  </div>
+  <div class="keunggulan-grid">
+    <div class="keunggulan-card reveal">
+      <span class="keung-icon">🌿</span>
+      <div class="keung-title">100% Alami</div>
+      <p class="keung-desc">Tidak mengandung pengawet, pewarna, atau bahan tambahan apapun. Murni dari alam.</p>
+    </div>
+    <div class="keunggulan-card reveal">
+      <span class="keung-icon">🕌</span>
+      <div class="keung-title">Halal Terjamin</div>
+      <p class="keung-desc">Bersertifikat halal dan dijamin kehalalannya sesuai syariat Islam. Barokah untuk semua.</p>
+    </div>
+    <div class="keunggulan-card reveal">
+      <span class="keung-icon">🧪</span>
+      <div class="keung-title">Uji Laboratorium</div>
+      <p class="keung-desc">Setiap produk telah melalui uji laboratorium untuk memastikan kemurnian dan kualitasnya.</p>
+    </div>
+    <div class="keunggulan-card reveal">
+      <span class="keung-icon">🚚</span>
+      <div class="keung-title">Pengiriman Aman</div>
+      <p class="keung-desc">Dikemas dengan aman dan dikirimkan ke seluruh Indonesia dalam kondisi terjaga kualitasnya.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUK -->
+<section id="produk">
+  <div class="produk-header reveal" style="text-align:center; justify-content:center;">
+    <div>
+      <div class="section-label">Produk Kami</div>
+      <h2 class="section-title">Madu Randu Murni<br><em style="color:var(--amber);font-style:italic">Syifa Barokah</em></h2>
+      <p class="section-sub" style="margin:0 auto;">Satu produk unggulan kami yang telah dipercaya ribuan pelanggan untuk kesehatan dan kesembuhan.</p>
+    </div>
+  </div>
+  <div style="display:flex; justify-content:center; margin-top:16px;">
+    <div class="produk-card reveal" style="max-width:480px; width:100%;">
+      <div class="produk-badge-card">⭐ Produk Unggulan</div>
+      <div class="produk-img" style="height:260px; font-size:9rem;">🍯</div>
+      <div class="produk-body">
+        <div class="produk-jenis">Madu Randu Murni — Raw Honey</div>
+        <div class="produk-nama" style="font-size:1.5rem;">Madu Syifa Barokah</div>
+        <p class="produk-desc" style="font-size:.95rem; line-height:1.8;">
+          Madu Randu Murni (<em>Raw Honey</em>) pilihan yang telah <strong style="color:var(--amber-dark);">dibacakan ayat-ayat suci Al-Qur'an</strong>. Insya Allah dapat membantu menyembuhkan segala penyakit dengan izin Allah SWT. Dipanen murni tanpa campuran, tanpa pengawet, dan tanpa pemrosesan berlebih agar khasiatnya tetap terjaga sempurna.
+        </p>
+        <div class="produk-manfaat" style="gap:8px;">
+          <span class="manfaat-tag">🕌 Dibacakan Al-Qur'an</span>
+          <span class="manfaat-tag">🌿 100% Murni</span>
+          <span class="manfaat-tag">💊 Penyembuh Penyakit</span>
+          <span class="manfaat-tag">✨ Raw Honey</span>
+          <span class="manfaat-tag">🚫 Tanpa Pengawet</span>
+          <span class="manfaat-tag">☪️ Halal</span>
+        </div>
+        <div class="produk-footer" style="margin-top:24px;">
+          <div class="produk-harga" style="font-size:1.8rem;">Rp 100.000<small>per botol</small></div>
+          <a href="https://wa.me/6285640449999?text=Halo%2C+saya+mau+pesan+Madu+Syifa+Barokah+Randu+Murni" class="btn-beli" style="padding:12px 28px; font-size:.95rem;" target="_blank">🛒 Pesan Sekarang</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section id="testimoni">
+  <div class="reveal">
+    <div class="section-label">Kata Mereka</div>
+    <h2 class="section-title">Kepuasan Pelanggan<br>adalah Prioritas Kami</h2>
+    <p class="section-sub">Ribuan pelanggan telah merasakan manfaat luar biasa dari Madu Syifa Barokah.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Madu Syifa Barokah luar biasa! Anak saya yang sering sakit, setelah rutin konsumsi madu ini jadi lebih jarang sakit. Imunnya meningkat drastis. Sangat rekomendasikan!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👩</div>
+        <div><div class="testi-name">Ibu Fatimah</div><div class="testi-loc">Surabaya, Jawa Timur</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Sudah 2 tahun setia pakai Madu Trigona dari sini. Rasanya beda banget dari yang lain, benar-benar asli dan berkualitas. Pelayanannya juga ramah dan cepat kirim!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👨</div>
+        <div><div class="testi-name">Pak Budi Santoso</div><div class="testi-loc">Bandung, Jawa Barat</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Madu hitam pahitnya manjur banget buat kolesterol saya. Dokter pun heran kenapa kadarnya turun. Ternyata rahasia saya adalah madu ini. Barakallah!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👴</div>
+        <div><div class="testi-name">Ustaz Mukhtar</div><div class="testi-loc">Yogyakarta, DIY</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Pesan untuk oleh-oleh dan semua suka! Packagingnya rapi, madu aslinya terasa beda. Sudah berlangganan dari 3 tahun lalu dan tidak pernah kecewa sama sekali."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👩</div>
+        <div><div class="testi-name">Siti Aminah</div><div class="testi-loc">Jakarta Selatan</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Madu hutan premiumnya bikin semangat kerja saya meningkat. Dulu sering capek, sekarang lebih berenergi. Porsi makannya juga lebih terjaga. Sangat puas!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👨</div>
+        <div><div class="testi-name">Rudi Hermawan</div><div class="testi-loc">Medan, Sumatera Utara</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Paket 3 in 1 sangat worth it untuk hadiah pernikahan. Semua tamu senang dapat madu berkualitas. Kemasan cantik, madu asli, harga terjangkau. Pasti repeat order!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👩</div>
+        <div><div class="testi-name">Nadia Rahmawati</div><div class="testi-loc">Makassar, Sulawesi Selatan</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARA PESAN -->
+<section id="pesan">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-label">Mudah & Cepat</div>
+    <h2 class="section-title">Cara Pemesanan</h2>
+    <p class="section-sub" style="margin: 0 auto;">Pesan madu segar kami hanya dalam 4 langkah mudah dan praktis.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">1</div>
+      <div class="step-title">Pilih Produk</div>
+      <p class="step-desc">Pilih varian dan ukuran madu yang sesuai kebutuhan Anda dari katalog kami.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">2</div>
+      <div class="step-title">Hubungi Kami</div>
+      <p class="step-desc">Hubungi kami via WhatsApp atau telepon untuk konfirmasi pesanan dan stok.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">3</div>
+      <div class="step-title">Lakukan Pembayaran</div>
+      <p class="step-desc">Transfer ke rekening kami. Tersedia metode pembayaran Bank Transfer, QRIS, dan COD.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">4</div>
+      <div class="step-title">Terima Pesanan</div>
+      <p class="step-desc">Madu dikemas aman dan dikirim ke lokasi Anda. Estimasi 1–3 hari kerja.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TENTANG -->
+<section id="tentang">
+  <div class="about-visual reveal">
+    <div class="about-img-wrap">
+      <div class="about-img-inner">🍯</div>
+    </div>
+    <div class="about-tag">
+      <div class="about-tag-num">6+</div>
+      <div class="about-tag-text">Tahun Berpengalaman</div>
+    </div>
+  </div>
+  <div class="reveal">
+    <div class="section-label">Tentang Kami</div>
+    <h2 class="section-title">Madu Syifa Barokah,<br><em style="font-style:italic;color:var(--amber)">Amanah &amp; Berkah</em></h2>
+    <p class="section-sub">Berdiri sejak 2019, Madu Syifa Barokah hadir dengan misi menghadirkan madu randu murni berkualitas terbaik yang telah dibacakan ayat-ayat suci Al-Qur'an. Kami percaya bahwa kesembuhan sejati berasal dari Allah SWT melalui kebaikan alam.</p>
+    <ul class="about-checks">
+      <li>Dipanen dari lebah ternak dan hutan liar pilihan</li>
+      <li>Tanpa pengawet, pewarna, dan pemanis buatan</li>
+      <li>Bersertifikat halal MUI</li>
+      <li>Uji laboratorium kemurnian setiap batch produksi</li>
+      <li>Jaringan distribusi ke seluruh Indonesia</li>
+      <li>Layanan konsultasi kesehatan gratis untuk pelanggan</li>
+    </ul>
+    <div style="margin-top:36px;">
+      <a href="#kontak" class="btn-primary">Hubungi Kami</a>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section id="kontak">
+  <div class="kontak-wrap">
+    <div class="reveal">
+      <div class="section-label">Hubungi Kami</div>
+      <h2 class="section-title">Ada Pertanyaan?<br>Kami Siap Membantu!</h2>
+      <p class="section-sub">Jangan ragu menghubungi kami untuk informasi produk, pemesanan, atau konsultasi kesehatan seputar madu.</p>
+      <ul class="kontak-info-list">
+        <li class="kontak-item">
+          <div class="kontak-icon-wrap">📞</div>
+          <div>
+            <div class="kontak-item-title">Telepon / WhatsApp</div>
+            <div class="kontak-item-val"><a href="https://wa.me/6285640449999" target="_blank">+62 856-4044-9999</a></div>
+          </div>
+        </li>
+        <li class="kontak-item">
+          <div class="kontak-icon-wrap">📧</div>
+          <div>
+            <div class="kontak-item-title">Email</div>
+            <div class="kontak-item-val"><a href="mailto:arsyadsyaifu@gmail.com">arsyadsyaifu@gmail.com</a></div>
+          </div>
+        </li>
+        <li class="kontak-item">
+          <div class="kontak-icon-wrap">📍</div>
+          <div>
+            <div class="kontak-item-title">Alamat</div>
+            <div class="kontak-item-val">Jalan Ronggowarsito No. 191, Kampung Sporland RT 3 RW 3</div>
+          </div>
+        </li>
+        <li class="kontak-item">
+          <div class="kontak-icon-wrap">🕐</div>
+          <div>
+            <div class="kontak-item-title">Jam Operasional</div>
+            <div class="kontak-item-val">Senin – Minggu: 08.00 – 20.00 WIB</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="kontak-form reveal">
+      <div class="form-title">📨 Kirim Pesan</div>
+      <div class="form-group">
+        <label>Nama Lengkap</label>
+        <input type="text" placeholder="Nama Anda" id="fn">
+      </div>
+      <div class="form-group">
+        <label>Nomor WhatsApp</label>
+        <input type="tel" placeholder="08xx-xxxx-xxxx" id="fwa">
+      </div>
+      <div class="form-group">
+        <label>Produk yang Diminati</label>
+        <select id="fprod">
+          <option value="">-- Pilih Produk --</option>
+          <option>Madu Randu Murni (Raw Honey) Syifa Barokah</option>
+          <option>Konsultasi / Informasi Produk</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pesan</label>
+        <textarea id="fmsg" placeholder="Tulis pesan atau pertanyaan Anda di sini..."></textarea>
+      </div>
+      <button class="btn-submit" onclick="kirimPesan()">
+        <span>💬</span> Kirim via WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">Madu <span>Syifa Barokah</span></div>
+      <p class="footer-desc">Madu murni pilihan untuk kesehatan dan keberkahan keluarga Indonesia. Dipanen dengan kasih, dikirim dengan amanah.</p>
+      <div class="footer-social">
+        <a href="https://wa.me/6285640449999" class="social-btn" title="Instagram">📸</a>
+        <a href="https://wa.me/6285640449999" class="social-btn" title="Facebook">📘</a>
+        <a href="https://wa.me/6285640449999" class="social-btn" title="WhatsApp">💬</a>
+        <a href="https://wa.me/6285640449999" class="social-btn" title="TikTok">🎵</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Produk</div>
+      <ul class="footer-links">
+        <li><a href="#produk">Madu Randu Murni</a></li>
+        <li><a href="#produk">Raw Honey Syifa Barokah</a></li>
+        <li><a href="#kontak">Pesan via WhatsApp</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Informasi</div>
+      <ul class="footer-links">
+        <li><a href="#tentang">Tentang Kami</a></li>
+        <li><a href="#keunggulan">Keunggulan</a></li>
+        <li><a href="#pesan">Cara Pesan</a></li>
+        <li><a href="#testimoni">Testimoni</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Pembayaran</div>
+      <ul class="footer-links">
+        <li><a href="#">Bank BCA</a></li>
+        <li><a href="#">Bank Mandiri</a></li>
+        <li><a href="#">Bank BRI</a></li>
+        <li><a href="#">QRIS</a></li>
+        <li><a href="#">COD (area tertentu)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 Madu Syifa Barokah. Semua hak dilindungi. Dibuat dengan ❤️ untuk kesehatan Indonesia.
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/6285640449999?text=Halo%2C+saya+ingin+tahu+lebih+lanjut+tentang+produk+Madu+Syifa+Barokah" class="wa-float" title="Chat WhatsApp" target="_blank">💬</a>
+
+<!-- TOAST -->
+<div id="toast">✅ Pesan berhasil dikirim ke WhatsApp!</div>
+
+<script>
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => obs.observe(el));
+
+  // Send WhatsApp
+  function kirimPesan() {
+    const nama = document.getElementById('fn').value.trim();
+    const wa = document.getElementById('fwa').value.trim();
+    const prod = document.getElementById('fprod').value;
+    const msg = document.getElementById('fmsg').value.trim();
+    if (!nama || !wa) { alert('Mohon isi nama dan nomor WhatsApp Anda.'); return; }
+    const text = encodeURIComponent(
+      `Halo Madu Syifa Barokah! 🍯\n\nNama: ${nama}\nNo. WA: ${wa}\nProduk: ${prod || 'Belum dipilih'}\nPesan: ${msg || '-'}`
+    );
+    window.open(`https://wa.me/6285640449999?text=${text}`, '_blank');
+    showToast();
+  }
+
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  // Hamburger
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    const cta = document.querySelector('.nav-cta');
+    if (links) {
+      const shown = links.style.display === 'flex';
+      links.style.cssText = shown ? '' : 'display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:#FDFAF3;padding:24px;gap:20px;box-shadow:0 8px 30px rgba(0,0,0,0.1);z-index:998;';
+      if (cta) cta.style.display = shown ? '' : 'none';
+    }
+  }
+</script>
+</body>
+</html>
